@@ -1,0 +1,23 @@
+{
+  "name": "opfa-react-heatmap",
+  "version": "1.0.0",
+  "description": "heatmap react plugin",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch"
+  },
+  "author": "opfa",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@grafana/data": "next",
+    "@grafana/toolkit": "next",
+    "@grafana/ui": "next"
+  },
+  "dependencies": {
+    "@types/react-plotly.js": "^2.2.4",
+    "plotly.js": "^1.51.3",
+    "react-plotly.js": "^2.4.0"
+  }
+}
