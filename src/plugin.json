@@ -26,8 +26,7 @@
         "url": "https://github.com/optionfactory/category-heatmap/blob/master/LICENSE"
       }
     ],
-    "version": "%VERSION%",
-    "updated": "%TODAY%"
+    "version": "1.0.1"
   },
   "dependencies": {
     "grafanaVersion": "6.3.x",
