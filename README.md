@@ -1,10 +1,11 @@
-# Simple React Panel
+# Heatmap by category
 
-This is just a stub to show how you can create a basic visualization plugin.
+Differently from Grafana's Heatmap plugin, this one draws a heatmap based on categories, not only on the timeline.
+This allows you to view, for example, histograms over app versions.
 
 To work with this plugin run:
 ```
-yarn dev
+make watch-in-docker
 ```
 
 or
@@ -12,10 +13,12 @@ or
 yarn watch
 ```
 
-This will run linting tools and apply prettier fix.
-
-
 To build the plugin run:
+```
+make build-in-docker
+```
+
+or
 ```
 yarn build
 ```
