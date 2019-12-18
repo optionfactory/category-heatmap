@@ -1,7 +1,7 @@
 export interface SimpleOptions {
-  text: string;
+  sorterType: 'text' | 'number' | 'version';
 }
 
 export const defaults: SimpleOptions = {
-  text: 'The default text!',
+  sorterType: 'text'
 };

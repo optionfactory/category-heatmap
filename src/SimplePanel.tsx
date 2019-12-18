@@ -7,7 +7,7 @@ interface Props extends PanelProps<SimpleOptions> {}
 
 export class SimplePanel extends PureComponent<Props> {
   render() {
-    const { data, width, height } = this.props;
+    const { data, width, height, options } = this.props;
     console.log(data);
     if (data.state !== 'Done') {
       console.log(`data.state is not Done (${data.state})`);
@@ -54,16 +54,22 @@ export class SimplePanel extends PureComponent<Props> {
       }
     }
 
-    const sortedVersions = Array.from(new Set(versions)).sort((a, b) => {
-      if (a.indexOf('.') === -1) {
-        return -1;
-      }
-      const [aMajor, aMinor, aPatch = 0] = a.split('.').map(n => +n.replace('\u200B', ''));
-      const [bMajor, bMinor, bPatch = 0] = b.split('.').map(n => +n.replace('\u200B', ''));
-      const aWeight = aMajor * 100_000 + aMinor * 1000 + aPatch;
-      const bWeight = bMajor * 100_000 + bMinor * 1000 + bPatch;
-      return aWeight - bWeight;
-    });
+    let sorterFn;
+    switch (options.sorterType) {
+      case 'text':
+        sorterFn = this.stringSorter;
+        break;
+      case 'number':
+        sorterFn = this.numericSorter;
+        break;
+      case 'version':
+        sorterFn = this.versionSorter;
+        break;
+      default:
+        sorterFn = this.stringSorter;
+    }
+
+    const sortedVersions = Array.from(new Set(versions)).sort(sorterFn);
     const sortedStatuses = Array.from(new Set(statuses))
       .sort()
       .reverse();
@@ -100,5 +106,24 @@ export class SimplePanel extends PureComponent<Props> {
       />
     );
     return a;
+  }
+
+  private stringSorter(a: string, b: string): number {
+    return a.localeCompare(b);
+  }
+
+  private numericSorter(a: string, b: string): number {
+    return +a - +b;
+  }
+
+  private versionSorter(a: string, b: string): number {
+    if (a.indexOf('.') === -1) {
+      return -1;
+    }
+    const [aMajor, aMinor, aPatch = 0] = a.split('.').map(n => +n.replace('\u200B', ''));
+    const [bMajor, bMinor, bPatch = 0] = b.split('.').map(n => +n.replace('\u200B', ''));
+    const aWeight = aMajor * 100_000 + aMinor * 1000 + aPatch;
+    const bWeight = bMajor * 100_000 + bMinor * 1000 + bPatch;
+    return aWeight - bWeight;
   }
 }
