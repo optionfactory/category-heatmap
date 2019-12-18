@@ -14,15 +14,15 @@ export class SimplePanel extends PureComponent<Props> {
     }
     const rawData = data.series[0].fields;
     const versions = rawData
-      .filter(field => field.name === 'version')[0]
+      .filter(field => field.name === options.xAxisField)[0]
       .values.toArray()
       .map(version => `\u200B${version}`);
     const statuses = rawData
-      .filter(field => field.name === 'status')[0]
+      .filter(field => field.name === options.yAxisField)[0]
       .values.toArray()
       .map(status => `\u200B${status}`);
     const values = rawData
-      .filter(field => field.name === 'Value')[0]
+      .filter(field => field.name === options.valuesField)[0]
       .values.toArray()
       .map((v, index) => {
         return {
@@ -53,25 +53,11 @@ export class SimplePanel extends PureComponent<Props> {
       }
     }
 
-    let sorterFn;
-    switch (options.sorterType) {
-      case 'text':
-        sorterFn = this.stringSorter;
-        break;
-      case 'number':
-        sorterFn = this.numericSorter;
-        break;
-      case 'version':
-        sorterFn = this.versionSorter;
-        break;
-      default:
-        sorterFn = this.stringSorter;
-    }
+    const xSorter = this.getSorterFunction(options.xSorterType);
+    const ySorter = this.getSorterFunction(options.ySorterType);
 
-    const sortedVersions = Array.from(new Set(versions)).sort(sorterFn);
-    const sortedStatuses = Array.from(new Set(statuses))
-      .sort()
-      .reverse();
+    const sortedVersions = Array.from(new Set(versions)).sort(xSorter);
+    const sortedStatuses = Array.from(new Set(statuses)).sort(ySorter).reverse();
 
     const plotData: any[] = [];
     sortedStatuses.map(s => {
@@ -124,5 +110,23 @@ export class SimplePanel extends PureComponent<Props> {
     const aWeight = aMajor * 100_000 + aMinor * 1000 + aPatch;
     const bWeight = bMajor * 100_000 + bMinor * 1000 + bPatch;
     return aWeight - bWeight;
+  }
+
+  private getSorterFunction(sorterName: string) {
+    let sorterFn;
+    switch (sorterName) {
+      case 'text':
+        sorterFn = this.stringSorter;
+        break;
+      case 'number':
+        sorterFn = this.numericSorter;
+        break;
+      case 'version':
+        sorterFn = this.versionSorter;
+        break;
+      default:
+        sorterFn = this.stringSorter;
+    }
+    return sorterFn;
   }
 }

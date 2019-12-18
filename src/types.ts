@@ -1,7 +1,15 @@
 export interface SimpleOptions {
-  sorterType: 'text' | 'number' | 'version';
+  xAxisField: string;
+  xSorterType: 'text' | 'number' | 'version';
+  yAxisField: string;
+  ySorterType: 'text' | 'number' | 'version';
+  valuesField: string;
 }
 
 export const defaults: SimpleOptions = {
-  sorterType: 'text'
+  xAxisField: 'version',
+  xSorterType: 'text',
+  yAxisField: 'status',
+  ySorterType: 'text',
+  valuesField: 'Value'
 };
