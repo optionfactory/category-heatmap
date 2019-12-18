@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { PanelProps } from '@grafana/data';
-import { SimpleOptions } from 'types';
+import { HeatmapOptions } from 'types';
 import Plot from 'react-plotly.js';
 
-interface Props extends PanelProps<SimpleOptions> {}
+interface Props extends PanelProps<HeatmapOptions> {}
 
-export class SimplePanel extends PureComponent<Props> {
+export class HeatmapPanel extends PureComponent<Props> {
   render() {
     const { data, width, height, options } = this.props;
     if (data.state !== 'Done') {

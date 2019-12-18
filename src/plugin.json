@@ -1,16 +1,16 @@
 {
   "type": "panel",
-  "name": "reactHeatmap",
-  "id": "opfa-react-heatmap",
+  "name": "CategoryHeatmap",
+  "id": "opfa-category-heatmap",
   "info": {
-    "description": "heatmap react plugin",
+    "description": "Heatmap by category plugin",
     "author": {
-      "name": "opfa",
-      "url": "optionfactory.net"
+      "name": "OptionFactory",
+      "url": "http://www.optionfactory.net/"
     },
     "keywords": [
       "heatmap",
-      "react"
+      "category"
     ],
     "logos": {
       "small": "img/logo.svg",
@@ -19,14 +19,13 @@
     "links": [
       {
         "name": "Website",
-        "url": "https://bitbucket.org/optionfactory/react-heatmap"
+        "url": "https://github.com/optionfactory/category-heatmap"
       },
       {
         "name": "License",
-        "url": "https://bitbucket.org/optionfactory/react-heatmap/src/master/LICENSE"
+        "url": "https://github.com/optionfactory/category-heatmap/blob/master/LICENSE"
       }
     ],
-    "screenshots": [],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },

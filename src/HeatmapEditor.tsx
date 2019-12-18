@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import { PanelEditorProps } from '@grafana/data';
 import { FormField, Switch } from '@grafana/ui';
 
-import { SimpleOptions } from './types';
+import { HeatmapOptions } from './types';
 
-export class SimpleEditor extends PureComponent<PanelEditorProps<SimpleOptions>> {
+export class HeatmapEditor extends PureComponent<PanelEditorProps<HeatmapOptions>> {
   onXAxisChanged = ({ target }: any) => {
     this.props.onOptionsChange({ ...this.props.options, xAxisField: target.value });
   };

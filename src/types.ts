@@ -1,4 +1,4 @@
-export interface SimpleOptions {
+export interface HeatmapOptions {
   xAxisField: string;
   xSorterType: 'text' | 'number' | 'version';
   yAxisField: string;
@@ -7,7 +7,7 @@ export interface SimpleOptions {
   showInPercentage: boolean;
 }
 
-export const defaults: SimpleOptions = {
+export const defaults: HeatmapOptions = {
   xAxisField: 'version',
   xSorterType: 'text',
   yAxisField: 'status',

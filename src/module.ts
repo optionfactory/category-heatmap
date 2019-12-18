@@ -1,6 +1,6 @@
 import { PanelPlugin } from '@grafana/data';
-import { SimpleOptions, defaults } from './types';
-import { SimplePanel } from './SimplePanel';
-import { SimpleEditor } from './SimpleEditor';
+import { HeatmapOptions, defaults } from './types';
+import { HeatmapPanel } from './HeatmapPanel';
+import { HeatmapEditor } from './HeatmapEditor';
 
-export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setDefaults(defaults).setEditor(SimpleEditor);
+export const plugin = new PanelPlugin<HeatmapOptions>(HeatmapPanel).setDefaults(defaults).setEditor(HeatmapEditor);
