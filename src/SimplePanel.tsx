@@ -41,15 +41,17 @@ export class SimplePanel extends PureComponent<Props> {
         acc[current.version][current.status] = acc[current.version][current.status] + current.value;
         return acc;
       }, {} as any);
-    for (const version in values) {
-      const row = values[version];
-      let total = 0;
-      for (const status in row) {
-        total += row[status];
-      }
-      total = Math.max(total, 1);
-      for (const status in row) {
-        row[status] = row[status] / total;
+    if (options.showInPercentage) {
+      for (const version in values) {
+        const row = values[version];
+        let total = 0;
+        for (const status in row) {
+          total += row[status];
+        }
+        total = Math.max(total, 1);
+        for (const status in row) {
+          row[status] = row[status] / total;
+        }
       }
     }
 

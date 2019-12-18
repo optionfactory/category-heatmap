@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PanelEditorProps } from '@grafana/data';
-import { FormField } from '@grafana/ui';
+import { FormField, Switch } from '@grafana/ui';
 
 import { SimpleOptions } from './types';
 
@@ -19,6 +19,9 @@ export class SimpleEditor extends PureComponent<PanelEditorProps<SimpleOptions>>
   };
   onValuesChanged = ({ target }: any) => {
     this.props.onOptionsChange({ ...this.props.options, valuesField: target.value });
+  };
+  onPercentageChange = ({ target }: any) => {
+    this.props.onOptionsChange({ ...this.props.options, showInPercentage: target.checked });
   };
 
   render() {
@@ -64,6 +67,7 @@ export class SimpleEditor extends PureComponent<PanelEditorProps<SimpleOptions>>
           <FormField label="Sorter type" inputEl={ySorterCombo}></FormField>
         </div>
         <FormField label="Values field" inputEl={valuesCombo}></FormField>
+        <Switch label="Show in percentage" onChange={this.onPercentageChange} checked={options.showInPercentage || false}></Switch>
       </div>
     );
   }

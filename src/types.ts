@@ -4,6 +4,7 @@ export interface SimpleOptions {
   yAxisField: string;
   ySorterType: 'text' | 'number' | 'version';
   valuesField: string;
+  showInPercentage: boolean;
 }
 
 export const defaults: SimpleOptions = {
@@ -11,5 +12,6 @@ export const defaults: SimpleOptions = {
   xSorterType: 'text',
   yAxisField: 'status',
   ySorterType: 'text',
-  valuesField: 'Value'
+  valuesField: 'Value',
+  showInPercentage: false
 };
