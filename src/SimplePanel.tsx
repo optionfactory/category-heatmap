@@ -8,7 +8,6 @@ interface Props extends PanelProps<SimpleOptions> {}
 export class SimplePanel extends PureComponent<Props> {
   render() {
     const { data, width, height, options } = this.props;
-    console.log(data);
     if (data.state !== 'Done') {
       console.log(`data.state is not Done (${data.state})`);
       return;
@@ -109,11 +108,11 @@ export class SimplePanel extends PureComponent<Props> {
   }
 
   private stringSorter(a: string, b: string): number {
-    return a.localeCompare(b);
+    return a.replace('\u200B', '').localeCompare(b.replace('\u200B', ''));
   }
 
   private numericSorter(a: string, b: string): number {
-    return +a - +b;
+    return +a.replace('\u200B', '') - +b.replace('\u200B', '');
   }
 
   private versionSorter(a: string, b: string): number {

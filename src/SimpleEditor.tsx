@@ -6,7 +6,6 @@ import { SimpleOptions } from './types';
 
 export class SimpleEditor extends PureComponent<PanelEditorProps<SimpleOptions>> {
   onSorterChanged = ({ target }: any) => {
-    console.log(target);
     this.props.onOptionsChange({ ...this.props.options, sorterType: target.value });
   };
 
