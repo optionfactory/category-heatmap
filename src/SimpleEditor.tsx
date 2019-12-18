@@ -23,31 +23,47 @@ export class SimpleEditor extends PureComponent<PanelEditorProps<SimpleOptions>>
 
   render() {
     const { options } = this.props;
+    
+    let fieldOptions = [<option>Select field</option>];
+    if (this.props.data.state === 'Done') {
+      fieldOptions = fieldOptions.concat(this.props.data.series[0].fields
+        .map(field => field.name)
+        .map(fieldName => <option value={fieldName}>{fieldName}</option>));
+    }
 
-    const xCombo = <select name="sorterType" id="sorterType" onChange={this.onXSorterChanged} value={options.xSorterType || 'text'}>
+    const xCombo = <select onChange={this.onXAxisChanged} value={options.xAxisField || ''}>
+      {fieldOptions}
+    </select>
+    const xSorterCombo = <select onChange={this.onXSorterChanged} value={options.xSorterType || 'text'}>
       <option value="text">Text</option>
       <option value="number">Number</option>
       <option value="version">Version</option>
     </select>
-    const yCombo = <select name="sorterType" id="sorterType" onChange={this.onYSorterChanged} value={options.ySorterType || 'text'}>
+    const yCombo = <select onChange={this.onYAxisChanged} value={options.yAxisField || ''}>
+      {fieldOptions}
+    </select>
+    const ySorterCombo = <select onChange={this.onYSorterChanged} value={options.ySorterType || 'text'}>
       <option value="text">Text</option>
       <option value="number">Number</option>
       <option value="version">Version</option>
+    </select>
+    const valuesCombo = <select onChange={this.onValuesChanged} value={options.valuesField || ''}>
+      {fieldOptions}
     </select>
 
     return (
       <div className="section gf-form-group">
         <div style={{display: 'flex'}}>
-          <FormField label="X axis field" onChange={this.onXAxisChanged} value={options.xAxisField || ''}
+          <FormField label="X axis field" inputEl={xCombo}
             style={{marginRight: '15px'}}></FormField>
-          <FormField label="Sorter type" inputEl={xCombo}></FormField>
+          <FormField label="Sorter type" inputEl={xSorterCombo}></FormField>
         </div>
         <div style={{display: 'flex'}}>
-          <FormField label="Y axis field" onChange={this.onYAxisChanged} value={options.yAxisField || ''}
+          <FormField label="Y axis field" inputEl={yCombo}
             style={{marginRight: '15px'}}></FormField>
-          <FormField label="Sorter type" inputEl={yCombo}></FormField>
+          <FormField label="Sorter type" inputEl={ySorterCombo}></FormField>
         </div>
-        <FormField label="Values field" onChange={this.onValuesChanged} value={options.valuesField || ''}></FormField>
+        <FormField label="Values field" inputEl={valuesCombo}></FormField>
       </div>
     );
   }
