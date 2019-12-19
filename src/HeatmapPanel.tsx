@@ -80,6 +80,16 @@ export class HeatmapPanel extends PureComponent<Props> {
             z: plotData,
             x: sortedColumns,
             y: sortedRows,
+            colorscale: [
+              [0, '#0000ff33'],
+              [1, '#fd0'],
+            ],
+            colorbar: {
+              tickcolor: '#d8d9da',
+              tickfont: {
+                color: '#d8d9da',
+              },
+            },
           },
         ]}
         layout={{
@@ -88,9 +98,17 @@ export class HeatmapPanel extends PureComponent<Props> {
           margin: {
             l: 160,
           },
+          xaxis: {
+            color: '#d8d9da',
+            showgrid: false,
+          },
           yaxis: {
+            color: '#d8d9da',
+            showgrid: false,
             tickangle: 45,
           },
+          plot_bgcolor: '#00000000',
+          paper_bgcolor: '#00000000',
         }}
       />
     );
