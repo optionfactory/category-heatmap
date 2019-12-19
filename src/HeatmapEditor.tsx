@@ -75,7 +75,7 @@ export class HeatmapEditor extends PureComponent<PanelEditorProps<HeatmapOptions
           <FormField label="Sorter type" inputEl={ySorterCombo}></FormField>
         </div>
         <FormField label="Values field" inputEl={valuesCombo}></FormField>
-        <Switch label="Show in percentage" onChange={this.onPercentageChange} checked={options.showInPercentage || false}></Switch>
+        <Switch label="Show in percentage (of column)" onChange={this.onPercentageChange} checked={options.showInPercentage || false}></Switch>
       </div>
     );
   }

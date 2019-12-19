@@ -13,11 +13,11 @@ export class HeatmapPanel extends PureComponent<Props> {
       return;
     }
     const rawData = data.series[0].fields;
-    const versions = rawData
+    const columns = rawData
       .filter(field => field.name === options.xAxisField)[0]
       .values.toArray()
       .map(version => `\u200B${version}`);
-    const statuses = rawData
+    const rows = rawData
       .filter(field => field.name === options.yAxisField)[0]
       .values.toArray()
       .map(status => `\u200B${status}`);
@@ -27,8 +27,8 @@ export class HeatmapPanel extends PureComponent<Props> {
       .map((v, index) => {
         return {
           value: v,
-          status: statuses[index],
-          version: versions[index],
+          status: rows[index],
+          version: columns[index],
         };
       })
       .reduce((acc, current) => {
@@ -58,15 +58,15 @@ export class HeatmapPanel extends PureComponent<Props> {
     const xSorter = this.getSorterFunction(options.xSorterType);
     const ySorter = this.getSorterFunction(options.ySorterType);
 
-    const sortedVersions = Array.from(new Set(versions)).sort(xSorter);
-    const sortedStatuses = Array.from(new Set(statuses))
+    const sortedColumns = Array.from(new Set(columns)).sort(xSorter);
+    const sortedRows = Array.from(new Set(rows))
       .sort(ySorter)
       .reverse();
 
     const plotData: any[] = [];
-    sortedStatuses.map(s => {
+    sortedRows.map(s => {
       const acc: any[] = [];
-      sortedVersions.forEach(v => {
+      sortedColumns.forEach(v => {
         acc.push(values[v][s]);
       });
       plotData.push(acc);
@@ -78,8 +78,8 @@ export class HeatmapPanel extends PureComponent<Props> {
           {
             type: 'heatmap',
             z: plotData,
-            x: sortedVersions,
-            y: sortedStatuses,
+            x: sortedColumns,
+            y: sortedRows,
           },
         ]}
         layout={{
