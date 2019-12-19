@@ -59,7 +59,9 @@ export class HeatmapPanel extends PureComponent<Props> {
     const ySorter = this.getSorterFunction(options.ySorterType);
 
     const sortedVersions = Array.from(new Set(versions)).sort(xSorter);
-    const sortedStatuses = Array.from(new Set(statuses)).sort(ySorter).reverse();
+    const sortedStatuses = Array.from(new Set(statuses))
+      .sort(ySorter)
+      .reverse();
 
     const plotData: any[] = [];
     sortedStatuses.map(s => {

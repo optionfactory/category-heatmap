@@ -13,5 +13,5 @@ export const defaults: HeatmapOptions = {
   yAxisField: 'status',
   ySorterType: 'text',
   valuesField: 'Value',
-  showInPercentage: false
+  showInPercentage: false,
 };
