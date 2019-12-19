@@ -16,41 +16,41 @@ export class HeatmapPanel extends PureComponent<Props> {
     const columns = rawData
       .filter(field => field.name === options.xAxisField)[0]
       .values.toArray()
-      .map(version => `\u200B${version}`);
+      .map(column => `\u200B${column}`);
     const rows = rawData
       .filter(field => field.name === options.yAxisField)[0]
       .values.toArray()
-      .map(status => `\u200B${status}`);
+      .map(row => `\u200B${row}`);
     const values = rawData
       .filter(field => field.name === options.valuesField)[0]
       .values.toArray()
       .map((v, index) => {
         return {
           value: v,
-          status: rows[index],
-          version: columns[index],
+          row: rows[index],
+          column: columns[index],
         };
       })
       .reduce((acc, current) => {
-        if (!acc[current.version]) {
-          acc[current.version] = {};
+        if (!acc[current.column]) {
+          acc[current.column] = {};
         }
-        if (!acc[current.version][current.status]) {
-          acc[current.version][current.status] = 0;
+        if (!acc[current.column][current.row]) {
+          acc[current.column][current.row] = 0;
         }
-        acc[current.version][current.status] = acc[current.version][current.status] + current.value;
+        acc[current.column][current.row] = acc[current.column][current.row] + current.value;
         return acc;
       }, {} as any);
     if (options.showInPercentage) {
-      for (const version in values) {
-        const row = values[version];
+      for (const columnId in values) {
+        const column = values[columnId];
         let total = 0;
-        for (const status in row) {
-          total += row[status];
+        for (const rowId in column) {
+          total += column[rowId];
         }
         total = Math.max(total, 1);
-        for (const status in row) {
-          row[status] = row[status] / total;
+        for (const rowId in column) {
+          column[rowId] = column[rowId] / total;
         }
       }
     }
