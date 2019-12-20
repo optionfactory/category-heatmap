@@ -84,12 +84,6 @@ export class HeatmapPanel extends PureComponent<Props> {
               [0, '#0000ff33'],
               [1, '#fd0'],
             ],
-            colorbar: {
-              tickcolor: '#d8d9da',
-              tickfont: {
-                color: '#d8d9da',
-              },
-            },
           },
         ]}
         layout={{
