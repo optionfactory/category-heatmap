@@ -24,6 +24,16 @@ export class HeatmapEditor extends PureComponent<PanelEditorProps<HeatmapOptions
     this.props.onOptionsChange({ ...this.props.options, showInPercentage: target.checked });
   };
 
+  onNullValuesAsZero = ({ target }: any) => {
+    this.props.onOptionsChange({ ...this.props.options, nullValuesAsZero: target.checked });
+  };
+  onZeroValuesAsNull = ({ target }: any) => {
+    this.props.onOptionsChange({ ...this.props.options, zeroValuesAsNull: target.checked });
+  };
+  onColorscaleChange = ({ target }: any) => {
+    this.props.onOptionsChange({ ...this.props.options, colorscale: target.value });
+  };
+
   render() {
     const { options } = this.props;
 
@@ -46,6 +56,7 @@ export class HeatmapEditor extends PureComponent<PanelEditorProps<HeatmapOptions
         <option value="version">Version</option>
       </select>
     );
+
     const yCombo = (
       <select onChange={this.onYAxisChanged} value={options.yAxisField || ''}>
         {fieldOptions}
@@ -64,6 +75,23 @@ export class HeatmapEditor extends PureComponent<PanelEditorProps<HeatmapOptions
       </select>
     );
 
+    const defaultColorscaleCombo = (
+      <select onChange={this.onColorscaleChange} value={typeof options.colorscale === 'string' ? options.colorscale : 'Portland'}>
+        <option value="Portland">Portland</option>
+        <option value="YIOrRd">YIOrRd</option>
+        <option value="YIGnBu">YIGnBu</option>
+        <option value="RdBu">RdBu</option>
+        <option value="Picnic">Picnic</option>
+        <option value="Jet">Jet</option>
+        <option value="Hot">Hot</option>
+        <option value="Greys">Greys</option>
+        <option value="Greens">Greens</option>
+        <option value="Electric">Electric</option>
+        <option value="Earth">Earth</option>
+        <option value="Bluered">Bluered</option>
+        <option value="Blackbody">Blackbody</option>
+      </select>
+    );
     return (
       <div className="section gf-form-group">
         <div style={{ display: 'flex' }}>
@@ -76,6 +104,9 @@ export class HeatmapEditor extends PureComponent<PanelEditorProps<HeatmapOptions
         </div>
         <FormField label="Values field" inputEl={valuesCombo}></FormField>
         <Switch label="Show in percentage (of column)" onChange={this.onPercentageChange} checked={options.showInPercentage || false}></Switch>
+        <FormField label="Color scale" inputEl={defaultColorscaleCombo}></FormField>
+        <Switch label="Null Values as Zero" onChange={this.onNullValuesAsZero} checked={options.nullValuesAsZero || false}></Switch>
+        <Switch label="Zero Values as Null" onChange={this.onZeroValuesAsNull} checked={options.zeroValuesAsNull || false}></Switch>
       </div>
     );
   }

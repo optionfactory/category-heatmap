@@ -67,7 +67,17 @@ export class HeatmapPanel extends PureComponent<Props> {
     sortedRows.map(s => {
       const acc: any[] = [];
       sortedColumns.forEach(v => {
-        acc.push(values[v][s]);
+        let value = values[v][s];
+        if (value === undefined) {
+          value = null;
+        }
+        if (options.nullValuesAsZero && value === null) {
+          value = 0;
+        }
+        if (options.zeroValuesAsNull && value === 0) {
+          value = null;
+        }
+        acc.push(value);
       });
       plotData.push(acc);
     });
@@ -80,10 +90,9 @@ export class HeatmapPanel extends PureComponent<Props> {
             z: plotData,
             x: sortedColumns,
             y: sortedRows,
-            colorscale: [
-              [0, '#0000ff33'],
-              [1, '#fd0'],
-            ],
+            colorscale: options.colorscale,
+            hoverinfo: 'none',
+            hovertemplate: `${options.xAxisField} : %{x}<br>` + `${options.yAxisField} : %{y}<br>` + `${options.valuesField} : %{z}<extra></extra>`,
           },
         ]}
         layout={{

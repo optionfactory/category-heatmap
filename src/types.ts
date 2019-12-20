@@ -1,3 +1,5 @@
+import { ColorScale } from 'plotly.js';
+
 export interface HeatmapOptions {
   xAxisField: string;
   xSorterType: 'text' | 'number' | 'version';
@@ -5,6 +7,9 @@ export interface HeatmapOptions {
   ySorterType: 'text' | 'number' | 'version';
   valuesField: string;
   showInPercentage: boolean;
+  colorscale: ColorScale;
+  nullValuesAsZero: boolean;
+  zeroValuesAsNull: boolean;
 }
 
 export const defaults: HeatmapOptions = {
@@ -14,4 +19,7 @@ export const defaults: HeatmapOptions = {
   ySorterType: 'text',
   valuesField: 'Value',
   showInPercentage: false,
+  colorscale: 'Portland',
+  nullValuesAsZero: false,
+  zeroValuesAsNull: false,
 };
