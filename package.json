@@ -1,6 +1,6 @@
 {
   "name": "opfa-react-heatmap",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "heatmap react plugin",
   "scripts": {
     "build": "grafana-toolkit plugin:build",

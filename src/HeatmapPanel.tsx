@@ -41,18 +41,21 @@ export class HeatmapPanel extends PureComponent<Props> {
         acc[current.column][current.row] = acc[current.column][current.row] + current.value;
         return acc;
       }, {} as any);
-    if (options.showInPercentage) {
-      for (const columnId in values) {
-        const column = values[columnId];
-        let total = 0;
-        for (const rowId in column) {
-          total += column[rowId];
-        }
-        total = Math.max(total, 1);
-        for (const rowId in column) {
-          column[rowId] = column[rowId] / total;
-        }
+    const percentages: any = {};
+    for (const columnId in values) {
+      const column = values[columnId];
+      percentages[columnId] = {};
+      const percentageColumn = percentages[columnId];
+      let total = 0;
+      for (const rowId in column) {
+        total += column[rowId];
       }
+      total = Math.max(total, 1);
+      for (const rowId in column) {
+        percentageColumn[rowId] = (column[rowId] / total) * 100;
+      }
+    }
+    if (options.showInPercentage) {
     }
 
     const xSorter = this.getSorterFunction(options.xSorterType);
@@ -63,36 +66,25 @@ export class HeatmapPanel extends PureComponent<Props> {
       .sort(ySorter)
       .reverse();
 
-    const plotData: any[] = [];
-    sortedRows.map(s => {
-      const acc: any[] = [];
-      sortedColumns.forEach(v => {
-        let value = values[v][s];
-        if (value === undefined) {
-          value = null;
-        }
-        if (options.nullValuesAsZero && value === null) {
-          value = 0;
-        }
-        if (options.zeroValuesAsNull && value === 0) {
-          value = null;
-        }
-        acc.push(value);
-      });
-      plotData.push(acc);
-    });
+    const plotData = this.mapValues(sortedRows, sortedColumns, values, options.nullValuesAsZero, options.zeroValuesAsNull);
+    const percentageData = this.mapValues(sortedRows, sortedColumns, percentages, options.nullValuesAsZero, options.zeroValuesAsNull);
 
     const a = (
       <Plot
         data={[
           {
             type: 'heatmap',
-            z: plotData,
+            z: options.showInPercentage ? percentageData : plotData,
             x: sortedColumns,
             y: sortedRows,
             colorscale: options.colorscale,
+            customdata: options.showInPercentage ? plotData : percentageData,
             hoverinfo: 'none',
-            hovertemplate: `${options.xAxisField} : %{x}<br>` + `${options.yAxisField} : %{y}<br>` + `${options.valuesField} : %{z}<extra></extra>`,
+            hovertemplate:
+              `${options.xAxisField} : %{x}<br>` +
+              `${options.yAxisField} : %{y}<br>` +
+              `${options.showInPercentage ? 'percentage' : options.valuesField} : %{z}${options.showInPercentage ? '%' : ''}<br>` +
+              `${options.showInPercentage ? options.valuesField : 'percentage'} : %{customdata}${options.showInPercentage ? '' : '%'}<extra></extra>`,
           },
         ]}
         layout={{
@@ -153,5 +145,27 @@ export class HeatmapPanel extends PureComponent<Props> {
         sorterFn = this.stringSorter;
     }
     return sorterFn;
+  }
+
+  private mapValues(sortedRows: string[], sortedColumns: string[], dataToMap: any, nullValuesAsZero: boolean, zeroValuesAsNull: boolean): any[] {
+    const data: any[] = [];
+    sortedRows.forEach(s => {
+      const acc: any[] = [];
+      sortedColumns.forEach(v => {
+        let value = dataToMap[v][s];
+        if (value === undefined) {
+          value = null;
+        }
+        if (nullValuesAsZero && value === null) {
+          value = 0;
+        }
+        if (zeroValuesAsNull && value === 0) {
+          value = null;
+        }
+        acc.push(value);
+      });
+      data.push(acc);
+    });
+    return data;
   }
 }
