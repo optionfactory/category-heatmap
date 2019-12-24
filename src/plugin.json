@@ -1,7 +1,7 @@
 {
   "type": "panel",
   "name": "CategoryHeatmap",
-  "id": "optionfactory-category-heatmap-panel",
+  "id": "optionfactory-categoryheatmap-panel",
   "info": {
     "description": "Heatmap by category plugin",
     "author": {

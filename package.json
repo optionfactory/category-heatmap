@@ -1,14 +1,14 @@
 {
-  "name": "opfa-react-heatmap",
+  "name": "optionfactory-categoryheatmap-panel",
   "version": "1.0.3",
-  "description": "heatmap react plugin",
+  "description": "Heatmap by category plugin",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch"
   },
-  "author": "opfa",
+  "author": "OptionFactory",
   "license": "Apache-2.0",
   "devDependencies": {
     "@grafana/data": "next",
