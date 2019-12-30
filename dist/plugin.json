@@ -1,0 +1,35 @@
+{
+  "type": "panel",
+  "name": "CategoryHeatmap",
+  "id": "optionfactory-categoryheatmap-panel",
+  "info": {
+    "description": "Heatmap by category plugin",
+    "author": {
+      "name": "OptionFactory",
+      "url": "http://www.optionfactory.net/"
+    },
+    "keywords": [
+      "heatmap",
+      "category"
+    ],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/optionfactory/category-heatmap"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/optionfactory/category-heatmap/blob/master/LICENSE"
+      }
+    ],
+    "version": "1.0.3"
+  },
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": []
+  }
+}
